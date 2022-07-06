@@ -12,7 +12,7 @@ CREATE TABLE users(
   ,prefecture_town VARCHAR(30)
   ,street_address VARCHAR(100)
   ,building VARCHAR(100)
-  ,telephone VARCHAR(15)
+  ,telephone INTEGER
   ,creditcard VARCHAR(17)
 );
 
