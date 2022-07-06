@@ -8,12 +8,12 @@ CREATE TABLE users(
   ,user_name VARCHAR(10) NOT NULL
   ,email VARCHAR(100) NOT NULL
   ,password TEXT NOT NULL
-  ,zipcode VARCHAR(7)
+  ,zipcode INTEGER
   ,prefecture_town VARCHAR(30)
   ,street_address VARCHAR(100)
   ,building VARCHAR(100)
   ,telephone INTEGER
-  ,creditcard VARCHAR(17)
+  ,creditcard INTEGER
 );
 
 --商品テーブル

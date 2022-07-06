@@ -2,6 +2,7 @@ package com.example.ecommerce_a.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -9,9 +10,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.ecommerce_a.customException.SqlConstraintViolationException;
 import com.example.ecommerce_a.domain.User;
 import com.example.ecommerce_a.domain.model.GroupOrder;
-import com.example.ecommerce_a.form.UserForm;
+import com.example.ecommerce_a.form.UserForm1;
 import com.example.ecommerce_a.service.UserService;
 
 /**
@@ -34,8 +36,8 @@ public class UserController {
 	 * @return UserFormをインスタンス化
 	 */
 	@ModelAttribute
-	public UserForm setUpUserForm() {
-		return new UserForm();
+	public UserForm1 setUpUserForm1() {
+		return new UserForm1();
 	}
 	
 	/**
@@ -45,10 +47,6 @@ public class UserController {
 	 */
 	@RequestMapping("")
 	public String toRegister() {
-		Integer userId = (Integer) session.getAttribute("userId");
-		if(userId!=null){
-            return  "redirect:/shoppingList";
-		}
 		return "register_user";
 	}
 	
@@ -56,36 +54,24 @@ public class UserController {
 	 * @param form ユーザー情報用フォーム
 	 * @return ログイン画面へリダイレクト
 	 */
-	@RequestMapping("/insert")
-	public String insert (@Validated(GroupOrder.class) UserForm form
-			              ,BindingResult result
-			              ) {
-		
-		User duplicateUser = userService.findByEmail(form.getEmail());
-		
-		if (duplicateUser != null) {
-			result.rejectValue("email", null, "このメールアドレスは既に登録されています");
-		}
-		
-		if(!form.getConfirmpassword().isEmpty() && !form.getPassword().isEmpty() && !form.getPassword().equals(form.getConfirmpassword())){
-			result.rejectValue("confirmpassword", "", "パスワードが一致していません");
-		}
-		
+	@RequestMapping("/check")
+	public String check(@Validated(GroupOrder.class) UserForm1 form, BindingResult result) {
 		if (result.hasErrors()) {
-			return "register_user.html";
+			return "register_user";
+		}
+		User user = new User();
+		BeanUtils.copyProperties(form, user);
+		
+		// サービスを呼ぶ
+		// 既に登録されているEmailだった場合、エラー表示する
+		try {
+			userService.insert(user);
+		} catch (SqlConstraintViolationException e) {
+			result.rejectValue("email", null, "このメールアドレスは新規登録できません");
+			return "register_user";
 		}
 		
-		
-		User user = new User();
-		user.setName(form.getName());
-		user.setEmail(form.getEmail());
-		user.setZipcode(form.getZipcode());
-		user.setAddress(form.getAddress());
-		user.setTelephone(form.getTelephone());
-		user.setPassword(form.getPassword());
-		userService.insert(user);
-		
-		return "redirect:/login";
+		return "register_user_confirmation";
 	}
 	
 }

@@ -60,7 +60,7 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userId", user.getId());
-		session.setAttribute("userName", user.getName());
+//		session.setAttribute("userName", user.getName());
 		session.setAttribute("userEmail", user.getEmail());
 		session.setAttribute("user", user);
 		String str = String.valueOf(user.getZipcode());

@@ -18,11 +18,11 @@ public class User {
 	private String streetAddress;
 	private String building;
 	private Integer telephone;
-	private String creditcard;
+	private Integer creditcard;
 
 	public User(Integer id, String firstName, String lastName, String userName, String email, String password,
 			Integer zipcode, String prefectureTown, String streetAddress, String building, Integer telephone,
-			String creditcard) {
+			Integer creditcard) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -129,11 +129,11 @@ public class User {
 		this.telephone = telephone;
 	}
 
-	public String getCreditcard() {
+	public Integer getCreditcard() {
 		return creditcard;
 	}
 
-	public void setCreditcard(String creditcard) {
+	public void setCreditcard(Integer creditcard) {
 		this.creditcard = creditcard;
 	}
 

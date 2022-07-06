@@ -10,15 +10,15 @@ public class SessionUtil {
 
 	public static MockHttpSession createUserIdAndUserSession() {
 		Map<String, Object> sessionMap = new LinkedHashMap<String, Object>();
-		User user = new User();
-		user.setId(1);
-		user.setName("テストユーザ");
-		user.setEmail("coffeeshop.test@gmail.com");
-		user.setAddress("テスト住所");
-		user.setZipcode("1111111");
-		user.setTelephone("テスト電話番号");
-		sessionMap.put("userId", user.getId());
-		sessionMap.put("user", user);
+//		User user = new User();
+//		user.setId(1);
+//		user.setName("テストユーザ");
+//		user.setEmail("coffeeshop.test@gmail.com");
+//		user.setAddress("テスト住所");
+//		user.setZipcode("1111111");
+//		user.setTelephone("テスト電話番号");
+//		sessionMap.put("userId", user.getId());
+//		sessionMap.put("user", user);
 		return createMockHttpSession(sessionMap);
 	}
 
