@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.ecommerce_a.form.UserForm;
+import com.example.ecommerce_a.form.UserForm1;
 
 @Controller
 @RequestMapping("/userPage")
@@ -18,12 +18,12 @@ public class UserPageController {
 	private HttpSession session;
 	
 	@ModelAttribute
-	public UserForm setUpUserForm() {
-		return new UserForm();
+	public UserForm1 setUpUserForm() {
+		return new UserForm1();
 	}
 	
 	@RequestMapping("")
-	public String userPage(UserForm form,Model model) {
+	public String userPage(UserForm1 form,Model model) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		if (userId == null) {
 			return "forward:/login";
