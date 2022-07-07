@@ -21,6 +21,21 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**
+	 * ユーザー情報登録前のEmail重複制約チェック
+	 * 
+	 * @param user
+	 * @throws SqlConstraintViolationException
+	 */
+	public void emailCheck(String email) throws SqlConstraintViolationException {
+		// Emailの重複がないかチェックする
+		// 重複があった場合、カスタム例外を投げる
+		User checkEmailResult = userRepository.findByEmail(email);
+		if (checkEmailResult != null) {
+			throw new SqlConstraintViolationException();
+		}
+	}
+	
 	
 	/**
 	 * ユーザー情報を登録します
@@ -28,18 +43,10 @@ public class UserService {
 	 * @param user
 	 * @throws SqlConstraintViolationException
 	 */
-	public User insert(User insertUser) throws SqlConstraintViolationException {
-		// Emailの重複がないかチェックする
-		// 重複があった場合、カスタム例外を投げる
-		User checkEmailResult = userRepository.findByEmail(insertUser.getEmail());
-		if (checkEmailResult != null) {
-			throw new SqlConstraintViolationException();
-		}
-
+	public User insert(User insertUser)  {
 		// ユーザーを登録し、idを含め登録したUser情報を返す
 		User user = userRepository.insert(insertUser);
 		return user;
-
 	}
 	
 	/**

@@ -15,7 +15,7 @@ import com.example.ecommerce_a.domain.model.ValidGroup2;
  *
  */
 public class UserForm1 {
-	@NotBlank(message = "ユーザーネームを入力してください", groups = ValidGroup1.class)
+	@NotBlank(message = "ユーザー名を入力してください", groups = ValidGroup1.class)
 	@Size(max = 10, min = 1, message = "10文字以下で設定ください", groups = ValidGroup2.class)
 	private String userName;
 	

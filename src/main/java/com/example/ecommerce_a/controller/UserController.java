@@ -4,11 +4,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Conventions;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ecommerce_a.customException.SqlConstraintViolationException;
 import com.example.ecommerce_a.domain.User;
@@ -55,9 +58,11 @@ public class UserController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@RequestMapping("/check")
-	public String check(@Validated(GroupOrder.class) UserForm1 form, BindingResult result) {
+	public String check(@Validated(GroupOrder.class) UserForm1 form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 		if (result.hasErrors()) {
-			return "register_user";
+			redirectAttributes.addFlashAttribute(form);
+			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + Conventions.getVariableName(form), result);
+			return "redirect:/register";
 		}
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
@@ -65,13 +70,44 @@ public class UserController {
 		// サービスを呼ぶ
 		// 既に登録されているEmailだった場合、エラー表示する
 		try {
-			userService.insert(user);
+			userService.emailCheck(user.getEmail());
 		} catch (SqlConstraintViolationException e) {
 			result.rejectValue("email", null, "このメールアドレスは新規登録できません");
-			return "register_user";
+			redirectAttributes.addFlashAttribute(form);
+			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + Conventions.getVariableName(form), result);
+			return "redirect:/register";
 		}
 		
+		model.addAttribute("user", user);
 		return "register_user_confirmation";
+	}
+	
+	
+	/**
+	 * ユーザーを登録する
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/insert")
+	public String register(UserForm1 userForm) {
+		User user = new User();
+		
+		user.setUserName(userForm.getUserName());
+		user.setEmail(userForm.getEmail());
+		user.setPassword(userForm.getPassword());
+		
+		user = userService.insert(user);
+		session.setAttribute("user", user);
+		return "redirect:/register/complete";
+	}
+	
+	/**
+	 * 登録完了画面
+	 * @return
+	 */
+	@RequestMapping("/complete")
+	public String complete() {
+		return "register_user_complete";
 	}
 	
 }

@@ -56,7 +56,7 @@ public class UserRepository {
 	 * @return ユーザー情報 存在しない場合はnullを返します。
 	 */
 	public User findByEmail(String email) {
-		String sql = "SELECT id,name,email,password,zipcode,address,telephone,password from users WHERE email=:email;";
+		String sql = "SELECT id, user_name, email, password FROM users WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		
