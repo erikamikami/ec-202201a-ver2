@@ -5,6 +5,7 @@
 <title>タイトル</title>
 </head>
 <body>
+  <!-- ▼ 企業ロゴのみVer ▼ -->
   <nav class="navbar navbar-default" th:fragment="frag_navbar_default">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -32,5 +33,60 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
+		
+	<!-- ▼ 企業ロゴ・メニューありVer ▼ -->
+	<nav class="navbar navbar-default"　th:fragment="frag_navbar_customize1">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span> <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/shoppingList}">
+              <!-- 企業ロゴ -->
+              <img
+                alt="main log"
+                src="../static/img_coffee/header_logo.png"
+                th:src="@{/img_coffee/header_logo.png}"
+                height="35"
+              />
+            </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div
+            class="collapse navbar-collapse"
+            id="bs-example-navbar-collapse-1"
+          >
+          <input type ="hidden" id="js_userId" th:value="${session.userId}" />
+            <p class="navbar-text navbar-right">
+              <th:block th:unless="${session.userId} == null">
+             	<span th:text="${session.userName + 'さん こんにちは！'}" style="font-weight:900;">山田さん</span>&nbsp;&nbsp;
+              </th:block>
+              <a href="cart_list.html" th:href="@{/userPage}" class="navbar-link" onclick="alertFunction()">マイページ</a
+              >&nbsp;&nbsp;
+              <a href="cart_list.html" th:href="@{/shoppingCart}" class="navbar-link">ショッピングカート</a
+              >&nbsp;&nbsp;
+              <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link" onclick="alertFunction()">注文履歴</a
+              >&nbsp;&nbsp;
+              <th:block th:switch="true">
+				<a th:case="${session.userId} == null AND ${session.preId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.userId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.preId} == null" th:href="@{/logout}" class="navbar-link">ログアウト</a>
+			  </th:block>
+            </p>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
 </body>
 </html>
