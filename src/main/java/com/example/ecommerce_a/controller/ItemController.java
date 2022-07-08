@@ -26,6 +26,7 @@ public class ItemController {
         return "item_list_coffee";
     }
  
+	// 値段が高いか安いかで表示切り替え
     @RequestMapping("/orderBy")
     public String index(String select,Model model){
         if(select.equals("low")){
@@ -39,6 +40,7 @@ public class ItemController {
         return "item_list_coffee";
     }
  
+	// 高いか安いかと検索結果の表示
     @RequestMapping("/searchWord")
     public String findByLikeWord(String searchWord,String select,Model model){
     	if(select==null) {
