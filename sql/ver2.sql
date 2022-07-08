@@ -17,7 +17,7 @@ CREATE TABLE users(
 );
 
 --飲み物商品テーブル
-drop table if exists beverrage_items cascade;s
+drop table if exists beverrage_items cascade;
 
 CREATE TABLE beverrage_items(
   id serial PRIMARY KEY

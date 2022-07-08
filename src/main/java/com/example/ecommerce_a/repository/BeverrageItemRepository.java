@@ -28,7 +28,7 @@ public class BeverrageItemRepository {
 	 */
 	public List<BeverrageItem> findAll() {
 		String sql = "SELECT id,name,description,price_s,price_m,price_l,image,deleted_flg,recommend_flg,season_flg,beverrage_items_category_id"
-				+ " FROM BeverrageItem ORDER BY price_s  ASC";
+				+ " FROM beverrage_items ORDER BY price_s  ASC";
 		List<BeverrageItem> beverrageItemList = template.query(sql, BEVERRAGE_ITEM_ROW_MAPPER);
 
 		return beverrageItemList;
