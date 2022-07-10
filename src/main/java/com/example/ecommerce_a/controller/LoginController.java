@@ -59,27 +59,10 @@ public class LoginController {
 			model.addAttribute("errorMessage", "メールアドレス、またはパスワードが間違っています");
 			return toLogin();
 		}
-		session.setAttribute("userId", user.getId());
-//		session.setAttribute("userName", user.getName());
-		session.setAttribute("userEmail", user.getEmail());
+
 		session.setAttribute("user", user);
-		String str = String.valueOf(user.getZipcode());
-		System.out.println(user);
-		session.setAttribute("userZipcode", str);
 		
-		
-		Integer userId = (Integer) session.getAttribute("userId");
-		Integer preId =  (Integer) session.getAttribute("preId");
-		OrderItem orderItem = loginService.load(userId);
-		if(preId!=null) {
-			if(orderItem!=null) {
-				loginService.deleteOrder(preId);
-			}else if(orderItem==null) {
-				loginService.updateOrder(userId,preId);
-			}
-		}
-		session.removeAttribute("preId");
-		return "redirect:/shoppingList";
+		return "redirect:/beverage";
 		
 	}
 }
