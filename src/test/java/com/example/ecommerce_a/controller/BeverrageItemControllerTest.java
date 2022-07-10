@@ -80,6 +80,7 @@ class BeverrageItemControllerTest {
 				.andExpect(view().name("beverage_list"))
 				.andReturn();
 		
+		
 		// 戻り値からビューとモデルを取得
 		List<BeverrageItem> BeverrageItemList = (List<BeverrageItem>) result.getModelAndView().getModel().get("BeverrageItemList");
 		

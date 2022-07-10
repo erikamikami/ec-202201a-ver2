@@ -90,23 +90,25 @@
         >
           <table class="table table-striped item-list-table" >
             <tbody class="itemTable mx-auto" >
-              <div th:each="item,status:${itemList}">
+              <div th:each="beverrageItem,status:${beverrageItemList}">
                   <div th:if="${status.index % 3==0}">
                 <tr></div>
                   <th>
-                    <a href="item_detail.html" th:href="@{/itemDetail?id=}+${item.id}">
+                    <a href="item_detail.html" th:href="@{/itemDetail?id=}+${beverrageItem.id}">
                       <img
                         src="../static/img_coffee/1.jpg"
-                        th:src="@{/img_coffee/}+${item.imagePath}"
+                        th:src="${'data:image;base64,'+beverrageItem.imageStr}"
                         class="img-responsive img-rounded item-img-center"
                         width="200"
                        height="600"
                       /> </a
                    ><br />
-                    <a href="item_detail.html" th:href="@{/itemDetail?id=}+${item.id}"><span th:text="${item.name}">dummy</span></a><br>
-                    <span class="price">&nbsp;М&nbsp;</span><span th:text="${item.priceM}+'円(税抜)'">&nbsp;М&nbsp;</span
+                    <a href="item_detail.html" th:href="@{/itemDetail?id=}+${beverrageItem.id}"><span th:text="${beverrageItem.name}">dummy</span></a><br>
+                    <span class="price">&nbsp;S&nbsp;</span><span th:text="${beverrageItem.priceS}+'円'">&nbsp;S&nbsp;</span
                     ><br />
-                    <span class="price" >&nbsp;Ｌ&nbsp;</span><span th:text="${item.priceL}+'円(税抜)'">&nbsp;Ｌ</span
+                    <span class="price" >&nbsp;M&nbsp;</span><span th:text="${beverrageItem.priceM}+'円'">&nbsp;Ｌ</span
+                    ><br>
+                    <span class="price" >&nbsp;Ｌ&nbsp;</span><span th:text="${beverrageItem.priceL}+'円'">&nbsp;Ｌ</span
                     ><br>
                   </th>
                   <div th:if="${status.index % 3==2}">

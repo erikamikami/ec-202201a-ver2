@@ -1,5 +1,6 @@
 package com.example.ecommerce_a.service;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class BeverrageItemService {
 	 */
 	public List<BeverrageItem> findAll() {
 		List<BeverrageItem> beverrageItemList = repository.findAll();
+		int i=0;
+		for(BeverrageItem beverrageItem : beverrageItemList) {
+			beverrageItem.setImageStr(Base64.getEncoder().encodeToString(beverrageItem.getImage()));
+			beverrageItemList.get(i).setImageStr(beverrageItem.getImageStr());
+		}
 		return beverrageItemList;
 	}
 

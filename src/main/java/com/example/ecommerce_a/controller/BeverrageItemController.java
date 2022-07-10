@@ -1,6 +1,9 @@
 package com.example.ecommerce_a.controller;
 
+import java.util.Base64;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,7 @@ public class BeverrageItemController {
 
 	@Autowired
 	private BeverrageItemService service;
-
+	
 	/**
 	 * 飲み物メニュー 全件表示させる<br>
 	 * スタート地点
@@ -25,8 +28,9 @@ public class BeverrageItemController {
 	 */
 	@RequestMapping("")
 	public String index(Model model) {
-		List<BeverrageItem> BeverrageItemList = service.findAll();
-		model.addAttribute("BeverrageItemList", BeverrageItemList);
+		List<BeverrageItem> beverrageItemList = service.findAll();
+		model.addAttribute("beverrageItemList", beverrageItemList);
+		
 		return "beverage_list";
 	}
 
