@@ -15,8 +15,6 @@ $(function() {
 	$(".size, #suryo, .topping").change(function() {
 		let sizePrice = $('input:radio[name="size"]:checked').val();
 		let quantity = $('option:selected').val();
-		console.log(sizePrice);
-		console.log(quantity);
 		sizePrice = parseInt(sizePrice);
 		quantity = parseInt(quantity);
 
@@ -25,10 +23,8 @@ $(function() {
 		$('input[name="orderToppings"]:checked').each(function(){
 			toppingPrice += parseInt($(this).val());
 		});
-		console.log(toppingPrice);
 
 		totalAll = (sizePrice + toppingPrice) * quantity;
-		console.log("totalAll" + totalAll);
 		$("#total-price").text(totalAll + "円");
 	});
 
