@@ -21,5 +21,15 @@ public class BeverageToppingService {
 		List<BeverageTopping> beverageToppingList = beverageToppingRepository.findAll();
 		return beverageToppingList;
 	}
+	
+	/**
+	 * idから特定のトッピングを提供
+	 * @param id
+	 * @return
+	 */
+	public BeverageTopping provideBeverageToppingById(int id) {
+		BeverageTopping beverageTopping = beverageToppingRepository.findById(id);
+		return beverageTopping;
+	}
 
 }

@@ -6,9 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.ecommerce_a.domain.BeverageTopping;
 import com.example.ecommerce_a.domain.BeverrageItem;
-import com.example.ecommerce_a.repository.BeverageToppingRepository;
 import com.example.ecommerce_a.repository.BeverrageItemRepository;
 
 @Service
@@ -41,8 +39,19 @@ public class BeverrageItemService {
 	public BeverrageItem provideBeverrageItemDetails(Integer id) {
 		// idから商品を特定
 		BeverrageItem beverrageItem = repository.findById(id); 
-		beverrageItem.setImageStr(Base64.getEncoder().encodeToString(beverrageItem.getImage()));
 		
+		beverrageItem = BeverrageItemService.encodeBase64(beverrageItem);
+		
+		return beverrageItem;
+	}
+	
+	/**
+	 * 画像をエンコードして返却する
+	 * @param beverrageItem
+	 * @return エンコードされた画像が入ったBeverrageItem
+	 */
+	static BeverrageItem encodeBase64(BeverrageItem beverrageItem) {
+		beverrageItem.setImageStr(Base64.getEncoder().encodeToString(beverrageItem.getImage()));
 		return beverrageItem;
 	}
 

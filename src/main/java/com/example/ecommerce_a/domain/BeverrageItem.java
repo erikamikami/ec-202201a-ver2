@@ -1,5 +1,7 @@
 package com.example.ecommerce_a.domain;
 
+import java.util.Arrays;
+
 /**
  * 飲み物アイテム
  * @author mikami
@@ -177,8 +179,8 @@ public class BeverrageItem {
 		@Override
 		public String toString() {
 			return "BeverrageItem [id=" + id + ", name=" + name + ", description=" + description + ", priceS=" + priceS
-					+ ", priceM=" + priceM + ", priceL=" + priceL + ", image=" + image + ", deletedFlg=" + deletedFlg
-					+ ", recommendFlg=" + recommendFlg + ", seasonFlg=" + seasonFlg + ", beverrageItemsCategoryId="
+					+ ", priceM=" + priceM + ", priceL=" + priceL + ", deletedFlg=" + deletedFlg + ", recommendFlg="
+					+ recommendFlg + ", seasonFlg=" + seasonFlg + ", beverrageItemsCategoryId="
 					+ beverrageItemsCategoryId + "]";
 		}
 

@@ -16,7 +16,7 @@
     <div class="container">
       <nav th:insert="/common/include"::frag_navbar></nav>
 
-      <form action="cart_list.html" th:action="@{/beverrageItemDetail/insert}">
+      <form action="cart_list.html" th:action="@{/beverrageItemDetail/insert}" th:object="${shoppingCartForm}" method="post">
         <div class="row">
           <div class="col-xs-offset-2 col-xs-8">
             <h3 class="text-center">商品詳細</h3>
@@ -27,12 +27,14 @@
                   th:src="${'data:image;base64,'+beverrageItem.imageStr}"
                   class="img-responsive img-rounded item-img-center"
                 />
+                <input type="hidden" name="imageStr" th:value="${beverrageItem.imageStr}">
               </div>
 
               <div class="col-xs-5">
                 <div class="bs-component">
                 <input type="hidden" name="itemId" th:value="${beverrageItem.id}">
                   <h4 th:text="${beverrageItem.name}">じゃがバターベーコン</h4>
+                  <input type="hidden" name="itemName" th:value="${beverrageItem.name}">
                   <br />
                   <br />
                   <p th:text="${beverrageItem.description}">
@@ -51,20 +53,17 @@
                     </div>
                     <div class="col-sm-12">
                       <label class="radio-inline">
-                        <input class="size" type="radio" name="size" text="S" th:value="${beverrageItem.priceS}"/>
-                        <input type=hidden id="priceS" class="sizePrice" th:value="${beverrageItem.priceS}" />
+                        <input class="size" type="radio" name="beverrageSize" value="S"/>
                         <span class="price">&nbsp;S&nbsp;</span>
                         <span th:text="'  '+${beverrageItem.priceS}+'円'">dummy</span>
                       </label>
                       <label class="radio-inline">
-                        <input class="size" type="radio" name="size" text="M" th:value="${beverrageItem.priceM}" checked/>
-                        <input type=hidden id="priceM" class="sizePrice" th:value="${beverrageItem.priceM}" />
+                        <input class="size" type="radio" name="beverrageSize" value="M" checked/>
                         <span class="price" >&nbsp;M&nbsp;</span>
                         <span th:text="'  '+${beverrageItem.priceM}+'円'">&nbsp;M</span>
                       </label>
                       <label class="radio-inline">
-                        <input class="size" type="radio" name="size" text="L" th:value="${beverrageItem.priceL}"/>
-                        <input type=hidden id="priceL" class="sizePrice" th:value="${beverrageItem.priceL}" />
+                        <input class="size" type="radio" name="beverrageSize" value="L"/>
                         <span class="price" >&nbsp;Ｌ&nbsp;</span>
                         <span th:text="'  '+${beverrageItem.priceL}+'円'">&nbsp;Ｌ</span>
                       </label>
@@ -85,7 +84,7 @@
                     </div>
                     <div class="flex-column" id="topping">
                       <label  th:each="beverageTopping:${beverageToppingList}">
-                        <input class="topping" type="checkbox" name="orderToppings" th:value="${beverageTopping.price}"/>
+                        <input class="topping" type="checkbox" name="beverageToppingIdList" th:value="${beverageTopping.id}"/>
                         <input type="hidden" name="toppingPrice" class="toppingPrice" th:value="${beverageTopping.price}"/>
                         <span th:text="${beverageTopping.name}"  style="font-weight: normal;">dummy</span>
                         <span th:text="${beverageTopping.price}+円"  style="font-weight: normal;">dummy</span>
@@ -124,7 +123,8 @@
             <div class="row">
               <div class="col-xs-offset-2 col-xs-10">
                 <div class="form-group">
-                  <span id="total-price">この商品金額：38,000 円(税抜)</span>
+                  <!-- <span class="total-price">この商品金額：38,000 円(税抜)</span>
+                  <input class="total-price" type="hidden" name="price" /> -->
                 </div>
               </div>
             </div>
@@ -148,7 +148,7 @@
     <!-- end container -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-    <script th:src="@{/js/beverrageItemDetail.js}"></script>
+    <!-- <script th:src="@{/js/beverrageItemDetail.js}"></script> -->
     <!-- <script th:src="@{/js/itemDetail.js}"></script> -->
     <script th:src="@{/js/alert.js}"></script>
   </body>

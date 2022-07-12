@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>タイトル</title>
+<link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<table class="table table-striped item-list-table">
+<tbody>
+<tr>
+              <th>
+                <div class="text-center">商品名</div>
+              </th>
+              <th>
+                <div class="text-center">サイズ・数量</div>
+              </th>
+              <th>
+                <div class="text-center">トッピング</div>
+              </th>
+              <th>
+                <div class="text-center">小計</div>
+              </th>
+              <th></th>
+            </tr>
+            <tr>
+
+<div th:each="ShoppingCart : ${session.shoppingCartList}">
+<tr>
+  
+  
+    <div th:each="BeverrageItem : ${ShoppingCart.beverageItem}">
+      <td><img th:src="${'data:image;base64,'+BeverrageItem.imageStr}"
+         class="img-responsive img-rounded item-img-center"
+         width="100" height="300" /></td>
+      <td><span th:text="${BeverrageItem.name}"></span></td>
+    </div>
+    <div th:each="BeverageTopping : ${ShoppingCart.beverageToppingList}">
+      <td><span th:text="${BeverageTopping.name}"></span></td>
+    </div>
+    <td><span th:text="${ShoppingCart.beverrageSize}"></span></td>
+    
+    
+    </tr>
+    </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
